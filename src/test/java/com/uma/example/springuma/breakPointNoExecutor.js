@@ -1,24 +1,24 @@
-//31568
-
 // import necessary module
 import http from "k6/http";
 import { check } from "k6";
 
-const max = 15283;
-
-export const options = { // spike
+export const options = { // punto de ruptura
     stages: [
-    { duration: '2m', target: Math.floor(max*0.4) },
+        { duration: '2m', target: 10000 },
+        { duration: '2m', target: 30000 },
+        { duration: '2m', target: 50000 },
+        { duration: '2m', target: 75000 },
+        { duration: '2m', target: 100000 },
     ],
     thresholds: {
         http_req_failed: [{
-            threshold: 'rate<=0.005',
-            abortOnFail: false,
-        }],
+            threshold: 'rate<=0.01',
+            abortOnFail: true,
+        }]
     }
-};
+};  
 
-// ejecutar  k6 run --out web-dashboard=export=report-test.html spikeTest.js
+// ejecutar  k6 run --out web-dashboard=export=report-test.html breakPointNoExecutor.js
 export default function () {
 
     // define URL and payload

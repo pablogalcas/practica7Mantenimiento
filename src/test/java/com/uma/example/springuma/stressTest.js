@@ -4,10 +4,12 @@
 import http from "k6/http";
 import { check } from "k6";
 
-export const options = { // spike
+const max = 15283;
+
+export const options = { // stress
     stages: [
-    { duration: '3m', target: 25254},
-    { duration: '3m', target: 25254},
+    { duration: '3m', target: Math.floor(max*0.8)},
+    { duration: '3m', target: Math.floor(max*0.8)},
     { duration: '2m', target: 0},
     ],
     thresholds: {

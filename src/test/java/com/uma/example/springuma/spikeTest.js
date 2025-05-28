@@ -4,9 +4,11 @@
 import http from "k6/http";
 import { check } from "k6";
 
+const max = 15283;
+
 export const options = { // spike
     stages: [
-    { duration: '2m', target: 12627 }, // subimos a un carga promedio de
+    { duration: '2m', target: Math.floor(max*0.4) },
     ],
     thresholds: {
         http_req_failed: [{

@@ -4,15 +4,21 @@ import { check } from "k6";
 
   export const options = { // punto de ruptura
     scenarios: {
-    breakpoint: {
-    executor: 'ramping-arrival-rate', // Incrementa la carga exponencial
-    preAllocatedVUs: 100, //VUs alocados inicialmente
-    maxVUs: 1e7, //VUs maximo
-    stages: [
-    { duration: '1m', target: 1000 }, // just slowly ramp-up to a HUGE load
-    ]
-    }
-    },
+        breakpoint: {
+                executor: 'ramping-arrival-rate', // Incrementa la carga exponencial
+                preAllocatedVUs: 100, //VUs alocados inicialmente
+                maxVUs: 1e7, //VUs maximo
+                stages: [
+                { duration: '10m', target: 100000 }, // just slowly ramp-up to a HUGE load
+                ]
+        }
+},
+thresholds: {
+        http_req_failed: [{
+                threshold: 'rate<=0.01',
+                abortOnFail: true,
+        }]
+}
 };  
 
 // ejecutar  k6 run --out web-dashboard=export=report-test.html breakPoint.js
