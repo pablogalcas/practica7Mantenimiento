@@ -1,3 +1,5 @@
+// Grupo M: Alejandro López Ortega y Pablo Galvez Castillo
+
 // import necessary module
 import http from "k6/http";
 import { check } from "k6";
